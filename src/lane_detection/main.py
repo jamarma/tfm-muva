@@ -7,6 +7,9 @@ from pathlib import Path
 from natsort import natsorted
 from torchvision import transforms
 
+import sys
+sys.path.append('laneatt/')
+
 from lib.models.laneatt import LaneATT
 
 
@@ -49,7 +52,7 @@ def main():
     args = parse_args()
     frame_paths = get_frame_paths(args.frames)
 
-    model = LaneATT(topk_anchors=1000, anchors_freq_path='.cache/culane_anchors_freq.pt')
+    model = LaneATT(topk_anchors=1000, anchors_freq_path='laneatt/.cache/culane_anchors_freq.pt')
     model.load_state_dict(torch.load(args.model)['model'])
     model = model.to('cuda')
     model.eval()
